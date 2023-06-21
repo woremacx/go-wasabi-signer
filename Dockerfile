@@ -10,6 +10,13 @@ RUN go build -v
 
 FROM ubuntu:23.04
 
+# ca-certificates: to prevent "tls: failed to verify certificate: x509: certificate signed by unknown authority"
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		ca-certificates \
+	; \
+	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
